@@ -30,27 +30,43 @@ enum HomeCategory {
       image: "https://www.pensador.com/mensagens_de_aniversario_para_pai/"),
   irmao(
       name: "Irmão",
-      path: "mensagens_de_aniversario_para_irmao",
+      path: "aniversario_irmao",
       image: "https://www.pensador.com/mensagens_de_aniversario_para_irmao/"),
   irma(
       name: "Irmã",
-      path: "mensagens_de_aniversario_para_irma",
+      path: "aniversario_irma",
       image: "https://www.pensador.com/mensagens_de_aniversario_para_irma/"),
   avos(
       name: "Avós",
-      path: "mensagens_de_aniversario_para_avos",
+      path: "aniversario_avo",
       image: "https://www.pensador.com/mensagens_de_aniversario_para_avos/"),
-  tio(
-      name: "Tio",
-      path: "mensagens_de_aniversario_para_tio",
-      image: "https://www.pensador.com/mensagens_de_aniversario_para_tio/"),
+  // tio(
+  //     name: "Tio",
+  //     path: "mensagens_de_aniversario_para_tio",
+  //     image: "https://www.pensador.com/mensagens_de_aniversario_para_tio/"),
   tia(
       name: "Tia",
-      path: "mensagens_de_aniversario_para_tia",
+      path: "aniversario_tia",
       image: "https://www.pensador.com/mensagens_de_aniversario_para_tia/"),
-  primos(
-      name: "Primos",
-      path: "mensagens_de_aniversario_para_primos",
+  primo(
+      name: "Primo",
+      path: "aniversario_primo",
+      image: "https://www.pensador.com/mensagens_de_aniversario_para_primos/"),
+  prima(
+      name: "Prima",
+      path: "aniversario_prima",
+      image: "https://www.pensador.com/mensagens_de_aniversario_para_primos/"),
+  chefe(
+      name: "Chefe",
+      path: "parabens_para_o_chefe",
+      image: "https://www.pensador.com/mensagens_de_aniversario_para_primos/"),
+  colega(
+      name: "Colega",
+      path: "aniversario_colega",
+      image: "https://www.pensador.com/mensagens_de_aniversario_para_primos/"),
+  namorado(
+      name: "Namorado",
+      path: "frases_de_aniversario_para_namorado",
       image: "https://www.pensador.com/mensagens_de_aniversario_para_primos/");
 
   final String name;
