@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feliz_aniversario/controller/home_controller.dart';
 import 'package:feliz_aniversario/pages/mensage_page.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SafeArea(
         child: Container(
+          height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.black, Colors.deepPurple],
@@ -62,17 +64,17 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: Column(
                         children: [
+                          const SizedBox(height: 4.0),
                           Container(
                             height: 200,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  category.image,
-                                ),
-                              ),
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
+                                    category.image,
+                                  )),
                             ),
                           ),
                           Padding(
