@@ -3,12 +3,18 @@ import 'package:feliz_aniversario/pages/components/home_category_data.dart';
 import 'package:feliz_aniversario/utils/scraper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:html/dom.dart';
 import 'package:logger/logger.dart';
 
 class MomentoDivinoScraper extends ChangeNotifier {
   Future<List<WebscrapEntity>> fetchImages(
-      {required String path, required String name}) async {
-    final doc = await Scraper().document('https://www.pensador.com/$path/');
+      {required String path, required page, required String name}) async {
+    Document? doc;
+    if (page == 1) {
+      doc = await Scraper().document('https://www.pensador.com/$path');
+    } else {
+      doc = await Scraper().document('https://www.pensador.com/$path/$page/');
+    }
 
     List<String> messages = Scraper.docSelecAll(doc, '.callout p');
 
