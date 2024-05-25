@@ -1,10 +1,8 @@
 import 'package:feliz_aniversario/entities/webscrap_entity.dart';
-import 'package:feliz_aniversario/pages/components/home_category_data.dart';
 import 'package:feliz_aniversario/utils/scraper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:html/dom.dart';
-import 'package:logger/logger.dart';
 
 class MomentoDivinoScraper extends ChangeNotifier {
   Future<List<WebscrapEntity>> fetchImages(
@@ -17,8 +15,12 @@ class MomentoDivinoScraper extends ChangeNotifier {
     }
 
     List<String> messages = Scraper.docSelecAll(doc, '.callout p');
-
     List<String> pagesLength = Scraper.docSelecAll(doc, '#paginacao a');
+
+    if (messages.isEmpty) {
+      messages = Scraper.docSelecAll(doc, '.phrases-list p');
+      Scraper.removeHtmlElements(messages, 'Nota:');
+    }
 
     if (pagesLength.isEmpty) {
       pagesLength = ['0'];
@@ -28,13 +30,6 @@ class MomentoDivinoScraper extends ChangeNotifier {
         .where((text) => RegExp(r'^\d+$').hasMatch(text))
         .map(int.parse)
         .toList();
-
-    Logger().i(pageNumbers.last);
-
-    if (name == HomeCategory.mae.name) {
-      messages = Scraper.docSelecAll(doc, '.phrases-list p');
-      Scraper.removeHtmlElements(messages, 'Nota:');
-    }
 
     final List<WebscrapEntity> entityList = [];
     for (int i = 0; i < messages.length; i++) {
