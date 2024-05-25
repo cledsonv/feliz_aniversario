@@ -8,12 +8,17 @@ import 'package:logger/logger.dart';
 class MomentoDivinoScraper extends ChangeNotifier {
   Future<List<WebscrapEntity>> fetchImages(
       {required String path, required String name}) async {
-    final doc = await Scraper().document('https://www.pensador.com/$path/2/');
+    final doc = await Scraper().document('https://www.pensador.com/$path/');
 
     List<String> messages = Scraper.docSelecAll(doc, '.callout p');
-    final pagesLength = Scraper.docSelecAll(doc, '#paginacao a');
 
-    List<int> pageNumbers = pagesLength
+    List<String> pagesLength = Scraper.docSelecAll(doc, '#paginacao a');
+
+    if (pagesLength.isEmpty) {
+      pagesLength = ['0'];
+    }
+
+    List<int?> pageNumbers = pagesLength
         .where((text) => RegExp(r'^\d+$').hasMatch(text))
         .map(int.parse)
         .toList();
@@ -28,7 +33,7 @@ class MomentoDivinoScraper extends ChangeNotifier {
     final List<WebscrapEntity> entityList = [];
     for (int i = 0; i < messages.length; i++) {
       entityList.add(WebscrapEntity(
-        pagesLength: pageNumbers.last,
+        pagesLength: pageNumbers.last ?? 0,
         url: '',
         content: messages[i],
       ));
