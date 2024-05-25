@@ -16,9 +16,9 @@ class ImageController extends ChangeNotifier {
     final arguments = ModalRoute.of(context)!.settings.arguments;
 
     category = arguments as CategoryEntity;
-
     getPageName();
-    await _fetch(0);
+
+    pagingController.notifyListeners();
     notifyListeners();
   }
 
@@ -29,19 +29,33 @@ class ImageController extends ChangeNotifier {
 
   @override
   void dispose() {
-    pagingController.dispose();
     super.dispose();
+    pagingController.dispose();
   }
 
-  Future<void> _fetch(int index) async {
+  Future<void> _fetch(int pageKey) async {
     try {
+      if (pageKey == 1) {
+        notifyListeners();
+      }
       final result = await _scraper.fetchImages(
-          path: category!.path, name: category!.name);
+          path: category!.path, page: pageKey, name: category!.name);
 
-      pagingController.appendPage(result, 1);
+      final actuallyPage = pageKey - 1;
+      final isLastPage = actuallyPage >= result.first.pagesLength;
+
+      if (isLastPage) {
+        pagingController.appendLastPage(result);
+      } else {
+        pagingController.appendPage(result, ++pageKey);
+      }
+      Logger().i(
+          'Actually: $actuallyPage, isLast: $isLastPage, total: ${result.first.pagesLength}');
     } on Exception catch (e) {
       pagingController.error = e;
       Logger().e(e);
+      rethrow;
     }
+    notifyListeners();
   }
 }
