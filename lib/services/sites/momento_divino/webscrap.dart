@@ -11,9 +11,14 @@ class MomentoDivinoScraper extends ChangeNotifier {
     final doc = await Scraper().document('https://www.pensador.com/$path/2/');
 
     List<String> messages = Scraper.docSelecAll(doc, '.callout p');
-    final pagesLength = Scraper.docSelecAll(doc, '.pagination.mb-10.discrete a');
+    final pagesLength = Scraper.docSelecAll(doc, '#paginacao a');
 
-    Logger().i(pagesLength);
+    List<int> pageNumbers = pagesLength
+        .where((text) => RegExp(r'^\d+$').hasMatch(text))
+        .map(int.parse)
+        .toList();
+
+    Logger().i(pageNumbers.last);
 
     if (name == HomeCategory.mae.name) {
       messages = Scraper.docSelecAll(doc, '.phrases-list p');
@@ -23,7 +28,7 @@ class MomentoDivinoScraper extends ChangeNotifier {
     final List<WebscrapEntity> entityList = [];
     for (int i = 0; i < messages.length; i++) {
       entityList.add(WebscrapEntity(
-        pagesLength: 100,
+        pagesLength: pageNumbers.last,
         url: '',
         content: messages[i],
       ));
