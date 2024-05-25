@@ -1,51 +1,38 @@
 import 'package:feliz_aniversario/entities/category_entity.dart';
 
-List<CategoryEntity> categories = [
-  CategoryEntity(
-    name: 'Agradecimento',
-    image:
-        'https://imgs.search.brave.com/d8IdEkt3mzdu7OSFTKdVUs48iE1c2cDKv4953xBBB2k/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/NDJmcmFzZXMuY29t/LmJyL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIwLzEwL2ZyYXNl/cy1kZS1hZ3JhZGVj/aW1lbnRvLWFvcy1w/YWlzLTEuanBn',
-    path: 'agradecimento',
-  ),
-  CategoryEntity(
-    name: 'Bíblicas',
-    image:
-        'https://imgs.search.brave.com/axl4h85MzUpR_aYbsp1hOypu4wQUBY3ol6PFEJfPZyk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/NDJmcmFzZXMuY29t/LmJyL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDE5LzA2L2ZyYXNl/cy1iaWJsaWNhcy1k/ZS1hbW9yLmpwZw',
-    path: 'biblicas',
-  ),
-  CategoryEntity(
-      name: 'Boa Noite',
-      image:
-          'https://www.mensagens10.com.br/wp-content/uploads/2013/05/sdgdsfgd.jpg',
-      path: 'boa-noite'),
-  CategoryEntity(
-      name: 'Boa Tarde',
-      image:
-          'https://imgs.search.brave.com/PDJrswu8WyaX8DhdWLsFpumoPmuHmbgKaub0brTdnfk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/NDJmcmFzZXMuY29t/LmJyL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIwLzA0L2ZyYXNl/cy1kZS1ib2EtdGFy/ZGUtcGFyYS1mYW1p/bGlhLTIuanBn',
-      path: 'boa-tarde'),
-  CategoryEntity(
-      name: 'Bom Dia',
-      image:
-          'https://imgs.search.brave.com/zJdSEh_WgYTwtV9IKJedhYCc29FQqlKO5OeiKsPAMfY/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvODI1/MTQ4MjQwL3B0L2Zv/dG8vc3VucmlzZS1v/dmVyLWZpZWxkLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz1w/NXpKbnR1TGdrU0N1/djFuTk9yVUo3XzVk/eG0wZklPQ2YxeWxP/YmhobC00PQ',
-      path: 'bom-dia'),
-  CategoryEntity(
-      name: 'Dias Da Semana',
-      image:
-          'https://imgs.search.brave.com/7ddX5meHQOFGaoQwMQmbOh7voBOzHWP0ZaM8Bx0ilzg/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9mYWN0/b3JpYWxoci5wdC93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/NC8yMjE0NTcxNy9m/ZXJpYWRvcy1wb3J0/dWdhbC0yMDIyLmpw/Zw',
-      path: 'dias-da-semana'),
-  CategoryEntity(
-      name: 'Diversas',
-      image:
-          'https://cdn.pixabay.com/photo/2017/06/27/11/48/team-spirit-2447163_1280.jpg',
-      path: 'diversas'),
-  CategoryEntity(
-      name: 'Orações',
-      image:
-          'https://cdn.pixabay.com/photo/2016/12/22/22/07/hands-1926414_1280.jpg',
-      path: 'oracoes'),
-  CategoryEntity(
-      name: 'Santos',
-      image:
-          'https://cdn.pixabay.com/photo/2017/09/04/09/38/crosses-2713356_1280.jpg',
-      path: 'santos'),
-];
+enum HomeCategory {
+  mae(name: "Mãe"),
+  amiga(name: "Amiga"),
+  amigo(name: "Amigo");
+
+  final String name;
+  const HomeCategory({required this.name});
+}
+
+List<CategoryEntity> getCategories() {
+  return HomeCategory.values.map((category) {
+    switch (category) {
+      case HomeCategory.mae:
+        return CategoryEntity(
+          name: HomeCategory.mae.name,
+          image:
+              'https://media.discordapp.net/attachments/1030715114158030868/1244010609755033600/mae-app.webp?ex=66538ea9&is=66523d29&hm=ad7fd087782ee45416138ee13e0f6c93916990eec9fc590a4871bc0ffc30dbe6&=&format=webp&width=420&height=420',
+          path: 'mensagem_de_feliz_aniversario_para_mae',
+        );
+      case HomeCategory.amiga:
+        return CategoryEntity(
+          name: HomeCategory.amiga.name,
+          image:
+              'https://media.discordapp.net/attachments/1030715114158030868/1244023276984991754/amiga-app.webp?ex=66539a76&is=665248f6&hm=8768b8936f3ae9db7ce7c379a7ae876bedf930bbe5226658e1a3d17fa6e847cd&=&format=webp&width=420&height=420',
+          path: 'mensagens_de_aniversario_emocionantes_para_amiga',
+        );
+      case HomeCategory.amigo:
+        return CategoryEntity(
+          name: HomeCategory.amigo.name,
+          image:
+              'https://media.discordapp.net/attachments/1030715114158030868/1244008148088520724/friends-app.webp?ex=66538c5f&is=66523adf&hm=05a1a779b5de8ae525399e9493fb69294d0c17c64567b09196394059647f2f8b&=&format=webp&width=420&height=420',
+          path: 'melhores_mensagens_de_aniversario_para_amigo',
+        );
+    }
+  }).toList();
+}

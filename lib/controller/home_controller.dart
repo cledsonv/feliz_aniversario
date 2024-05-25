@@ -6,6 +6,6 @@ class HomeController {
   List<CategoryEntity> category = [];
 
   HomeController() {
-    category = data.categories;
+    category = data.getCategories();
   }
 }

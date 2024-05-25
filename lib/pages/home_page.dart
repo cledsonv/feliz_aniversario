@@ -16,10 +16,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          'Categorias',
+          style: TextStyle(
+              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: SizedBox(
+          child: Container(
             height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.black, Colors.deepPurple],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
             child: ListView.builder(
               itemCount: ct.category.length,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -38,8 +56,12 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                       child: Card(
-                        elevation: 5,
-                        shadowColor: Colors.black,
+                        color: Colors.deepPurple[800],
+                        elevation: 8,
+                        shadowColor: Colors.deepPurple,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
                         child: Column(
                           children: [
                             const SizedBox(height: 4.0),
@@ -47,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                               height: 200,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: NetworkImage(
@@ -57,11 +79,12 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(4.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 category.name,
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

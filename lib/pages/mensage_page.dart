@@ -1,11 +1,11 @@
 import 'package:feliz_aniversario/controller/image_controller.dart';
 import 'package:feliz_aniversario/entities/webscrap_entity.dart';
-import 'package:feliz_aniversario/pages/image_shared_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class MensagePage extends StatefulWidget {
-  static const route = '/mensage';
+  static const route = '/message';
   const MensagePage({super.key});
 
   @override
@@ -18,7 +18,10 @@ class _MensagePageState extends State<MensagePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => ct.init(context));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ct.init(context);
+    });
+
     ct.addListener(() {
       if (mounted) {
         setState(() {});
@@ -36,44 +39,83 @@ class _MensagePageState extends State<MensagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ct.category!.name),
+        title: Text(ct.getPageName()),
+        backgroundColor: Colors.deepPurple,
+        elevation: 0,
+        centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: CustomScrollView(
-          slivers: [
-            PagedSliverGrid<int, WebscrapEntity>(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-              ),
-              pagingController: ct.pagingController,
-              builderDelegate: PagedChildBuilderDelegate<WebscrapEntity>(
-                  itemBuilder: (context, entity, index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ImageSharedPage(
-                            image: entity.images,
-                            ct: ct,
-                            entity: entity,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.deepPurple, Colors.purpleAccent],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          child: PagedListView<int, WebscrapEntity>(
+            pagingController: ct.pagingController,
+            builderDelegate: PagedChildBuilderDelegate<WebscrapEntity>(
+              itemBuilder: (context, entity, index) {
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  elevation: 5,
+                  shadowColor: Colors.black45,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          entity.content,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            height: 1.5,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.deepPurple,
                           ),
                         ),
-                      );
-                    },
-                    child: Image.network(
-                      entity.images,
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () {
+                            Clipboard.setData(
+                                ClipboardData(text: entity.content));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Texto copiado para a área de transferência'),
+                              ),
+                            );
+                          },
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Copiar texto',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.deepPurple,
+                                ),
+                              ),
+                              Icon(
+                                Icons.copy,
+                                color: Colors.deepPurple,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );
-              }),
+              },
             ),
-          ],
+          ),
         ),
       ),
     );
