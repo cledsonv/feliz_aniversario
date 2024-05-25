@@ -39,15 +39,31 @@ class _MensagePageState extends State<MensagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ct.getPageName()),
-        backgroundColor: Colors.deepPurple,
-        elevation: 0,
-        centerTitle: true,
-      ),
+          title: Text(ct.getPageName(),
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              )),
+          backgroundColor: const Color.fromARGB(255, 41, 23, 72),
+          elevation: 0,
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.purpleAccent],
+            colors: [
+              Color.fromARGB(255, 41, 23, 72),
+              Color.fromARGB(255, 0, 0, 0)
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -73,10 +89,10 @@ class _MensagePageState extends State<MensagePage> {
                         Text(
                           entity.content,
                           style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             height: 1.5,
                             fontWeight: FontWeight.w600,
-                            color: Colors.deepPurple,
+                            color: Color.fromARGB(255, 156, 111, 234),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -99,12 +115,13 @@ class _MensagePageState extends State<MensagePage> {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
-                                  color: Colors.deepPurple,
+                                  color: Color.fromARGB(255, 0, 0, 0),
                                 ),
                               ),
+                              SizedBox(width: 10),
                               Icon(
                                 Icons.copy,
-                                color: Colors.deepPurple,
+                                color: Color.fromARGB(255, 0, 0, 0),
                               ),
                             ],
                           ),
