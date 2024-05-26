@@ -14,6 +14,7 @@ class MensagePage extends StatefulWidget {
 
 class _MensagePageState extends State<MensagePage> {
   final ImageController ct = ImageController();
+  bool order = true;
 
   @override
   void initState() {
@@ -39,24 +40,34 @@ class _MensagePageState extends State<MensagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(ct.getPageName(),
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              )),
-          backgroundColor: const Color.fromARGB(255, 41, 23, 72),
-          elevation: 0,
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
+        title: Text(ct.getPageName(),
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
-            ),
+            )),
+        backgroundColor: const Color.fromARGB(255, 41, 23, 72),
+        elevation: 0,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.sort_by_alpha, color: Colors.white),
             onPressed: () {
-              Navigator.pop(context);
+              order = !order;
+              ct.sortItemsAlphabetically(order);
             },
-          )),
+          ),
+        ],
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

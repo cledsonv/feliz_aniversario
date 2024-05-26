@@ -58,4 +58,17 @@ class ImageController extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void sortItemsAlphabetically(bool alphabeticalOrder) {
+    final List<WebscrapEntity>? currentList = pagingController.itemList;
+    if (currentList != null && currentList.isNotEmpty) {
+      if (alphabeticalOrder) {
+        currentList.sort((a, b) => a.content.compareTo(b.content));
+      } else {
+        currentList.sort((a, b) => b.content.compareTo(a.content));
+      }
+      pagingController.itemList = List.from(currentList);
+      notifyListeners();
+    }
+  }
 }
