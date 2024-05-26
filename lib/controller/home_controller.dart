@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 class HomeController {
-  final bool alphabeticalOrder;
+  bool alphabeticalOrder;
   bool isSearching = false;
   TextEditingController searchController = TextEditingController();
 
