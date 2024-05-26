@@ -12,19 +12,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  HomeController ct = HomeController(false);
+  HomeController ct = HomeController();
 
   @override
   void initState() {
     super.initState();
-    ct = HomeController(ct.alphabeticalOrder);
-  }
-
-  void toggleSortOrder() {
-    setState(() {
-      ct.alphabeticalOrder = !ct.alphabeticalOrder;
-      ct = HomeController(ct.alphabeticalOrder);
-    });
+    ct.init();
   }
 
   @override
@@ -86,7 +79,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           IconButton(
-            onPressed: toggleSortOrder,
+            onPressed: () {
+              setState(() {
+                ct.alphabeticalOrder = !ct.alphabeticalOrder;
+                ct.organizeList();
+              });
+            },
             icon: Icon(
               ct.alphabeticalOrder ? Icons.sort : Icons.filter_list,
               color: Colors.white,

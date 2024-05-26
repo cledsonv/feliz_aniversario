@@ -5,22 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 class HomeController {
-  bool alphabeticalOrder;
+  bool alphabeticalOrder = true;
   bool isSearching = false;
   TextEditingController searchController = TextEditingController();
 
   List<CategoryEntity> category = [];
   List<CategoryEntity> resultCategory = [];
 
-  HomeController(this.alphabeticalOrder) {
+  Future<void> init() async {
     category = data.getCategories();
-
-    if (alphabeticalOrder) {
-      category.sort((a, b) => a.name.compareTo(b.name));
-    } else {
-      category.sort((a, b) => b.name.compareTo(a.name));
-    }
     resultCategory = category;
+    organizeList();
+  }
+
+  void organizeList() {
+    if (alphabeticalOrder) {
+      resultCategory.sort((a, b) => a.name.compareTo(b.name));
+    } else {
+      resultCategory.sort((a, b) => b.name.compareTo(a.name));
+    }
   }
 
   searchCategory(String input) {
