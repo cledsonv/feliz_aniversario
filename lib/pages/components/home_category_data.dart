@@ -52,7 +52,7 @@ enum HomeCategory {
       name: "Tia",
       path: "aniversario_tia",
       image:
-          "https://images.pexels.com/photos/7867916/pexels-photo-7867916.jpeg?auto=compress&cs=tinysrgb&w=400"),
+          "https://images.pexels.com/photos/6006326/pexels-photo-6006326.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
   primo(
       name: "Primo",
       path: "aniversario_primo",
