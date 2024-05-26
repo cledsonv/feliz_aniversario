@@ -12,21 +12,54 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeController ct = HomeController();
+  bool alphabeticalOrder = true;
+  late HomeController ct;
+
+  @override
+  void initState() {
+    super.initState();
+    ct = HomeController(alphabeticalOrder);
+  }
+
+  void toggleSortOrder() {
+    setState(() {
+      alphabeticalOrder = !alphabeticalOrder;
+      ct = HomeController(alphabeticalOrder);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(166, 0, 0, 0),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
           'Categorias',
           style: TextStyle(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: toggleSortOrder,
+            icon: Icon(
+              alphabeticalOrder ? Icons.sort : Icons.filter_list,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () => {},
+            icon: const Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Container(
@@ -71,10 +104,11 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: CachedNetworkImageProvider(
-                                    category.image,
-                                  )),
+                                fit: BoxFit.cover,
+                                image: CachedNetworkImageProvider(
+                                  category.image,
+                                ),
+                              ),
                             ),
                           ),
                           Padding(
