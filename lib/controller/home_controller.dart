@@ -10,6 +10,7 @@ class HomeController {
   TextEditingController searchController = TextEditingController();
 
   List<CategoryEntity> category = [];
+  List<CategoryEntity> resultCategory = [];
 
   HomeController(this.alphabeticalOrder) {
     category = data.getCategories();
@@ -19,9 +20,8 @@ class HomeController {
     } else {
       category.sort((a, b) => b.name.compareTo(a.name));
     }
+    resultCategory = category;
   }
-
-  List<CategoryEntity> resultCategory = [];
 
   searchCategory(String input) {
     resultCategory = category
@@ -32,6 +32,6 @@ class HomeController {
               .contains(input.toLowerCase().trim()),
         )
         .toList();
-    Logger().d("Resultado: ${resultCategory}");
+    Logger().d("Resultado: $resultCategory");
   }
 }
