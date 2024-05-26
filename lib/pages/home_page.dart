@@ -35,27 +35,61 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          'Categorias',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: ct.isSearching
+            ? SizedBox(
+                height: 40,
+                child: TextField(
+                  controller: ct.searchController,
+                  onChanged: (value) {
+                    setState(() {
+                      ct.searchCategory(value);
+                    });
+                  },
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                  decoration: const InputDecoration(
+                    hintText: 'Pesquisar categoria...',
+                    hintStyle: TextStyle(color: Colors.white, fontSize: 14),
+                    contentPadding: EdgeInsets.all(10),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                ),
+              )
+            : const Text(
+                'Categorias',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: toggleSortOrder,
-            icon: Icon(
-              alphabeticalOrder ? Icons.sort : Icons.filter_list,
+            onPressed: () => {
+              setState(() {
+                ct.isSearching = !ct.isSearching;
+              })
+            },
+            icon: const Icon(
+              Icons.search,
               color: Colors.white,
             ),
           ),
           IconButton(
-            onPressed: () => {},
-            icon: const Icon(
-              Icons.search,
+            onPressed: toggleSortOrder,
+            icon: Icon(
+              alphabeticalOrder ? Icons.sort : Icons.filter_list,
               color: Colors.white,
             ),
           ),
@@ -72,11 +106,11 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           child: ListView.builder(
-            itemCount: ct.category.length,
+            itemCount: ct.resultCategory.length,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             shrinkWrap: false,
             itemBuilder: (context, idx) {
-              final category = ct.category[idx];
+              final category = ct.resultCategory[idx];
               return Column(
                 children: [
                   const SizedBox(height: 10),
@@ -97,7 +131,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: Column(
                         children: [
-                          const SizedBox(height: 4.0),
                           Container(
                             height: 200,
                             width: double.infinity,
