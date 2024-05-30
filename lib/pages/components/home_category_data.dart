@@ -5,13 +5,13 @@ enum HomeCategory {
     name: "Mãe",
     path: 'mensagem_de_feliz_aniversario_para_mae',
     image:
-        'https://media.discordapp.net/attachments/1030715114158030868/1244010609755033600/mae-app.webp?ex=66538ea9&is=66523d29&hm=ad7fd087782ee45416138ee13e0f6c93916990eec9fc590a4871bc0ffc30dbe6&=&format=webp&width=420&height=420',
+        'https://images.pexels.com/photos/8035973/pexels-photo-8035973.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
   ),
   amiga(
       name: "Amiga",
       path: 'mensagens_de_aniversario_emocionantes_para_amiga',
       image:
-          'https://media.discordapp.net/attachments/1030715114158030868/1244023276984991754/amiga-app.webp?ex=66539a76&is=665248f6&hm=8768b8936f3ae9db7ce7c379a7ae876bedf930bbe5226658e1a3d17fa6e847cd&=&format=webp&width=420&height=420'),
+          'https://images.pexels.com/photos/5935249/pexels-photo-5935249.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
   amigo(
     name: "Amigo",
     path: 'melhores_mensagens_de_aniversario_para_amigo',
