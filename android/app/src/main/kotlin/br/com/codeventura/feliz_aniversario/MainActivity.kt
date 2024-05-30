@@ -1,4 +1,4 @@
-package com.example.feliz_aniversario
+package br.com.codeventura.feliz_aniversario
 
 import io.flutter.embedding.android.FlutterActivity
 
